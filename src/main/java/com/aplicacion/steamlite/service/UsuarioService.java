@@ -57,9 +57,12 @@ public class UsuarioService {
         if (!usuarioRepository.existsById(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado");
         }
-        // Sin relaciones JPA no hay borrado en cascada: borramos a mano los juegos del desarrollador
-        juegoRepository.deleteAll(juegoRepository.findByUsuarioId(id));
-        usuarioRepository.deleteById(id);
+        /if(juegoRepository.findByUsuarioId(id).isEmpty()){
+            usuarioRepository.deleteById(id);
+        }
+        else{
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "El usuario tiene juegos.");
+        }
     }
 
     // Login educativo: NO es seguro para una aplicación real
