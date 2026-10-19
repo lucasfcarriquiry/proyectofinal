@@ -57,7 +57,7 @@ public class UsuarioService {
         if (!usuarioRepository.existsById(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado");
         }
-        /if(juegoRepository.findByUsuarioId(id).isEmpty()){
+        if(juegoRepository.findByUsuarioId(id).isEmpty()){
             usuarioRepository.deleteById(id);
         }
         else{
